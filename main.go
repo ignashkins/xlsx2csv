@@ -42,14 +42,18 @@ func generateCSVFromXLSXFile(w io.Writer, excelFileName string, sheetIndex int, 
 				if err != nil {
 					return err
 				}
-				vals = append(vals, str)
+				if str != "" {
+					vals = append(vals, str)
+				}
 				return nil
 			})
 			if err != nil {
 				return err
 			}
 		}
-		cw.Write(vals)
+		if len(vals) != 0 {
+			cw.Write(vals)
+		}
 		return nil
 	})
 	if err != nil {
